@@ -1,0 +1,41 @@
+{
+  "name": "p2m-message-server",
+  "version": "1.0.0",
+  "description": "A microservice to provider all platform message push service.",
+  "main": "index.js",
+  "repository": "https://github.com/colin-han/p2m-message-server.git",
+  "author": "Colin Han <biz@colinhan.info>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "body-parser": "^1.17.1",
+    "co": "^4.6.0",
+    "co-express": "^2.0.0",
+    "config": "^1.25.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
+    "p2m-common-logger": "^1.0.0",
+    "promise": "^7.1.1",
+    "query-string": "^4.3.2",
+    "sequelize": "^3.30.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-preset-latest": "^6.24.0",
+    "chokidar": "^1.6.1",
+    "fs-readdir-recursive": "^1.0.0",
+    "moment": "^2.18.1",
+    "output-file-sync": "^2.0.0",
+    "slash": "^1.0.0"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/babel-node tools/build.js",
+    "server": "build/server.js",
+    "start": "./node_modules/.bin/nodemon --watch build --watch config build/app.js"
+  }
+}
