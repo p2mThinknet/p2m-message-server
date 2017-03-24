@@ -8,6 +8,7 @@ import QueryInterface from 'sequelize/lib/query-interface'
 //noinspection SpellCheckingInspection
 import Umzug from 'umzug'
 import path from 'path'
+import yargs from 'yargs';
 import sequelize from '../src/db/sequelize'
 import seeders from '../src/db/seeders'
 
@@ -32,18 +33,36 @@ const umzug = new Umzug({
   }
 });
 
-export function up() {
+export function up(argv) {
+  console.log(`Upward database to version: ${argv.target}`);
   //noinspection JSUnresolvedFunction
   co(function*() {
-    yield umzug.up({});
+    yield umzug.up(argv.target === '@' ? {} : {to: argv.target});
     yield seeders();
   }).catch(console.error);
 }
 
-export function down() {
-  umzug.down({});
+export function down(argv) {
+  console.log(`Downward database to version: ${argv.target}`);
+  umzug.down({to: argv.target});
 }
 
 if (!module.parent) {
-  up();
+  let argv = yargs
+      .usage('Usage: $0 <command> [options]')
+      .command(['up', '*'], 'upward database to newer state.', {
+        target: {
+          alias: 't',
+          default: '@',
+          describe: 'target version to upward to.'
+        }
+      }, up)
+      .command('down', 'downward database to older state.', {
+        target: {
+          alias: 't',
+          describe: 'target version to downward to.'
+        }
+      }, down)
+      .help()
+      .argv;
 }

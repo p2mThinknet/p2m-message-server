@@ -7,6 +7,7 @@
   "author": "Colin Han <biz@colinhan.info>",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.24.0",
     "babel-runtime": "^6.23.0",
     "body-parser": "^1.17.1",
     "co": "^4.6.0",
@@ -22,26 +23,27 @@
     "p2m-common-logger": "^1.0.0",
     "promise": "^7.1.1",
     "query-string": "^4.3.2",
-    "sequelize": "^3.30.2"
+    "sequelize": "^3.30.2",
+    "umzug": "^1.11.0",
+    "yargs": "^7.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-preset-node": "^5.1.1",
     "babel-preset-stage-3": "^6.22.0",
+    "bluebird": "^3.5.0",
     "chokidar": "^1.6.1",
     "fs-readdir-recursive": "^1.0.0",
     "moment": "^2.18.1",
     "nodemon": "^1.11.0",
     "output-file-sync": "^2.0.0",
-    "slash": "^1.0.0",
-    "umzug": "^1.11.0"
+    "slash": "^1.0.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel-node tools/build.js",
     "server": "build/server.js",
     "start": "./node_modules/.bin/nodemon --watch build --watch config build/app.js",
-    "migration": "./node_modules/.bin/babel-node -e \"require('./tools/migration.js').up()\"",
-    "migration:down": "./node_modules/.bin/babel-node -e \"require('./tools/migration.js').down()\""
+    "migration": "./node_modules/.bin/babel-node ./tools/migration.js up",
+    "migration:down": "./node_modules/.bin/babel-node ./tools/migration.js down"
   }
 }
