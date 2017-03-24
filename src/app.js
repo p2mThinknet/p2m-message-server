@@ -2,23 +2,31 @@
  * Created by colinhan on 23/03/2017.
  */
 
-import co from 'co';
 import express from 'express';
+import config from 'config';
+import compression from 'compression';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import path from 'path';
+
+import commonLogger from 'p2m-common-logger';
+let logger = commonLogger('message-server');
+
+import api from './api';
 
 let app = express();
 
-// if (__DEV__) {
-//   const webpack = require('webpack');
-//   const webpackDevMiddleware = require('webpack-dev-middleware');
-//   const webpackConfig = require('../webpack.config');
-//
-//   var compiler = webpack(webpackConfig);
-//
-//   app.use(webpackDevMiddleware(compiler, {
-//     publicPath: "/"
-//   }));
-// }
+app.use(morgan((config.tracer && config.tracer.morganFormat) || 'combined'));
+app.use(compression());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-app.listen(3000);
-console.log('Service is starting at http://localhost:3000');
+app.use(api.path, api.router);
+
+let server = app.listen(config.server.port);
+
+logger.log(`Service is starting at http://localhost:${config.server.port}`);
 

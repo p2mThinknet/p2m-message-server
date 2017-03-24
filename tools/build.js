@@ -25,7 +25,8 @@ function addSourceMappingUrl(code, loc) {
 function compileFile(src, dest) {
   let data = transformFileSync(src, {
     sourceFileName: slash(path.relative(dest + "/..", src)),
-    sourceMapTarget: path.basename(dest)
+    sourceMapTarget: path.basename(dest),
+    extends: slash(path.relative(dest + "/..", '.babelrc'))
   });
 
   let mapLoc = dest + ".map";

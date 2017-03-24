@@ -11,9 +11,11 @@
     "body-parser": "^1.17.1",
     "co": "^4.6.0",
     "co-express": "^2.0.0",
+    "compression": "^1.6.2",
     "config": "^1.25.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "js-yaml": "^3.8.2",
     "lodash": "^4.17.4",
     "morgan": "^1.8.1",
     "mysql": "^2.13.0",
@@ -26,16 +28,20 @@
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
-    "babel-preset-latest": "^6.24.0",
+    "babel-preset-node": "^5.1.1",
+    "babel-preset-stage-3": "^6.22.0",
     "chokidar": "^1.6.1",
     "fs-readdir-recursive": "^1.0.0",
     "moment": "^2.18.1",
     "output-file-sync": "^2.0.0",
-    "slash": "^1.0.0"
+    "slash": "^1.0.0",
+    "umzug": "^1.11.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/babel-node tools/build.js",
     "server": "build/server.js",
-    "start": "./node_modules/.bin/nodemon --watch build --watch config build/app.js"
+    "start": "./node_modules/.bin/nodemon --watch build --watch config build/app.js",
+    "migration": "node -e \"require('./tools/migration.js').up()\"",
+    "migration:down": "node -e \"require('./tools/migration.js').down()\""
   }
 }

@@ -1,0 +1,10 @@
+server:
+  port: 80
+  path: /message
+
+database:
+  username: root
+  password: xA123456
+  database: p2m_message_server
+  host: mysql
+  dialect: mysql

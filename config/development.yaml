@@ -1,0 +1,6 @@
+server:
+  port: 3000
+
+database:
+  database: dev_p2m_message_server
+  host: localhost
