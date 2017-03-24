@@ -2,8 +2,10 @@
  * Created by colinhan on 10/8/16.
  */
 
-module.exports = {
-  sequelize: require('./sequelize'),
-  models: require('./models'),
-  //migrations: require('./migrations')
-};
+import models from './models';
+import sequelize from './sequelize';
+
+// export const models = require('./models');
+// export const sequelize = require('./models');
+
+export {models, sequelize};

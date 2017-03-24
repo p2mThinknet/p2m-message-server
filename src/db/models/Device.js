@@ -1,9 +1,9 @@
 /**
  * Created by colinhan on 17/02/2017..
  */
-const Sequelize = require('sequelize');
-const Model = require('../sequelize');
-const R = require('./relationships');
+import Sequelize from 'sequelize';
+import Model from '../sequelize';
+import R from './relationships';
 
 const Device = Model.define('Device', {
   id: {
@@ -39,4 +39,4 @@ const Device = Model.define('Device', {
 
 R.hasMany(Device, 'PushRecord');
 
-module.exports = Device;
+export default Device;

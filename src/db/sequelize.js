@@ -7,14 +7,12 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const Sequelize = require('sequelize');
-const Config = require('config');
-const _ = require('lodash');
+import Sequelize from 'sequelize';
+import Config from 'config';
+import _ from 'lodash';
 
-const sequelize = new Sequelize(_.assign({}, Config.get('database'), {
+export default new Sequelize(_.assign({}, Config.get('database'), {
   define: {
     freezeTableName: true,
   }
 }));
-
-module.exports = sequelize;

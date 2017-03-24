@@ -2,8 +2,8 @@
  * Created by colinhan on 15/11/2016.
  */
 
-const _ = require('lodash');
-const Sequelize = require('sequelize');
+import _ from 'lodash';
+import Sequelize from 'sequelize';
 
 let _relationships = {};
 let _defaultOptions = {
@@ -47,7 +47,7 @@ function _appendImpl(funcName, src, target, options) {
   });
 }
 
-module.exports = {
+export default {
   hasMany: _appendImpl.bind(null, 'hasMany'),
   hasOne: _appendImpl.bind(null, 'hasOne'),
   belongsTo: _appendImpl.bind(null, 'belongsTo'),

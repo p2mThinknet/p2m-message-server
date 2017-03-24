@@ -2,11 +2,12 @@
  * Created by colinhan on 17/02/2017.
  */
 
-const Promise = require('promise');
-const co = require('co');
+import Promise from 'promise';
+import co from 'co';
+import {models} from './db';
+import config from 'config';
+
 const logger = require('p2m-common-logger')('message-server');
-const {models} = require('./db');
-const config = require('config');
 
 function* forceRun() {
   logger.log('forceRun start');

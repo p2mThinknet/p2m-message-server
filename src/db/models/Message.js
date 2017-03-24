@@ -1,9 +1,9 @@
 /**
  * Created by colinhan on 17/02/2017..
  */
-const Sequelize = require('sequelize');
-const Model = require('../sequelize');
-const R = require('./relationships');
+import Sequelize from 'sequelize';
+import Model from '../sequelize';
+import R from './relationships';
 
 const Message = Model.define('Message', {
   id: {
@@ -61,4 +61,4 @@ const Message = Model.define('Message', {
 
 R.hasMany(Message, "SendRecord");
 
-module.exports = Message;
+export default Message;

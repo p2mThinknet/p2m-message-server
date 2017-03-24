@@ -7,17 +7,19 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-const R = require('./relationships');
-const Device = require('./Device');
-const Message = require('./Message');
-const SendRecord = require('./SendRecord');
-const PushRecord = require('./PushRecord');
+import R from './relationships';
+import Device from './Device';
+import Message from './Message';
+import SendRecord from './SendRecord';
+import PushRecord from './PushRecord';
 
-module.exports = {
+const models = {
   Device,
   Message,
   SendRecord,
   PushRecord,
 };
 
-R.applyTo(module.exports);
+R.applyTo(models);
+
+export default models;

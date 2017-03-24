@@ -2,18 +2,19 @@
  * Created by colinhan on 07/11/2016.
  */
 
-const co = require('co');
-const fs = require('fs');
-const Sequelize = require('sequelize');
-const QueryInterface = require('sequelize/lib/query-interface');
-const Umzug = require('umzug');
-const path = require('path');
-const sequelize = require('../src/db/sequelize');
-const seeders = require('../src/db/seeders');
+import co from 'co'
+import Sequelize from 'sequelize'
+import QueryInterface from 'sequelize/lib/query-interface'
+//noinspection SpellCheckingInspection
+import Umzug from 'umzug'
+import path from 'path'
+import sequelize from '../src/db/sequelize'
+import seeders from '../src/db/seeders'
 
 const queryInterface = new QueryInterface(sequelize);
 
-var umzug = new Umzug({
+//noinspection SpellCheckingInspection
+const umzug = new Umzug({
   storage: 'sequelize',
   storageOptions: {
     sequelize: sequelize,
@@ -25,22 +26,23 @@ var umzug = new Umzug({
     params: [queryInterface, Sequelize],
     path: path.join(__dirname, '../src/db/migrations'),
     pattern: /^\d+[\w-]+\.js$/,
-    wrap: function(fun) {return fun;}
+    wrap: function (fun) {
+      return fun;
+    }
   }
 });
 
-function up() {
+export function up() {
+  //noinspection JSUnresolvedFunction
   co(function*() {
     yield umzug.up({});
     yield seeders();
   }).catch(console.error);
 }
 
-function down() {
+export function down() {
   umzug.down({});
 }
-
-module.exports = {up, down};
 
 if (!module.parent) {
   up();

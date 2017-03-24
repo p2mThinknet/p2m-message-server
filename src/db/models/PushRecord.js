@@ -1,9 +1,9 @@
 /**
  * Created by colinhan on 17/02/2017..
  */
-const Sequelize = require('sequelize');
-const Model = require('../sequelize');
-const R = require('./relationships');
+import Sequelize from 'sequelize';
+import Model from '../sequelize';
+import R from './relationships';
 
 const PushRecord = Model.define('PushRecord', {
   id: {
@@ -24,4 +24,4 @@ const PushRecord = Model.define('PushRecord', {
 R.belongsTo(PushRecord, 'SendRecord');
 R.belongsTo(PushRecord, 'Device');
 
-module.exports = PushRecord;
+export default PushRecord;

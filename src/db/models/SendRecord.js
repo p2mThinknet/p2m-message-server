@@ -1,9 +1,9 @@
 /**
  * Created by colinhan on 17/02/2017..
  */
-const Sequelize = require('sequelize');
-const Model = require('../sequelize');
-const R = require('./relationships');
+import Sequelize from 'sequelize';
+import Model from '../sequelize';
+import R from './relationships';
 
 const SendRecord = Model.define('SendRecord', {
   id: {
@@ -41,4 +41,4 @@ const SendRecord = Model.define('SendRecord', {
 R.belongsTo(SendRecord, 'Message');
 R.hasMany(SendRecord, "PushRecord");
 
-module.exports = SendRecord;
+export default SendRecord;
