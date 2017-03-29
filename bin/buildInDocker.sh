@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 cd /
-yarn install
+# ensure install devDependencies.
+NODE_ENV= yarn install
 yarn build
 rm -rf src
 rm -rf node_modules
