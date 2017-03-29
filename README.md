@@ -1,4 +1,4 @@
-# Start an message service
+# Start a message service
 ``` bash
 docker run -d \
     --restart always \
