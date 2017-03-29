@@ -13,7 +13,18 @@ import path from 'path';
 import commonLogger from 'p2m-common-logger';
 let logger = commonLogger('message-server');
 
+let socketIoChannel, jpushChannel;
+if (__DEV__) {
+  socketIoChannel = require('../../socketio/build');
+  jpushChannel = require('../../jpush/build');
+} else {
+  socketIoChannel = require('p2m-message-channel-socket-io');
+  jpushChannel = require('p2m-message-channel-jpush');
+}
+
 import api from './api';
+import service from './service';
+import {models} from './db'
 
 let app = express();
 
@@ -27,6 +38,10 @@ app.use(bodyParser.json());
 app.use(api.path, api.router);
 
 let server = app.listen(config.server.port);
+
+service.use(socketIoChannel({path: config.server.path, models: models}))
+    .use(jpushChannel(config.jpush))
+    .start(app, server);
 
 logger.log(`Service is starting at http://localhost:${config.server.port}`);
 

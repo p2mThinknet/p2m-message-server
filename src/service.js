@@ -16,7 +16,7 @@ function* forceRun() {
 }
 function* intervalRun() {
   yield* loop();
-  setTimeout(co.wrap(intervalRun), config.pushService.interval)
+  setTimeout(co.wrap(intervalRun), config.server.interval)
 }
 
 function* loop() {
@@ -93,6 +93,7 @@ function start(app, server) {
   channels.map(c=>c.start(app, server));
 
   co(intervalRun);
+  return this;
 }
 
 function stop() {
@@ -105,6 +106,7 @@ function stop() {
   clearTimeout(timer);
 
   channels.map(c=>c.stop());
+  return this;
 }
 
 let channels = [];

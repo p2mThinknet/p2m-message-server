@@ -11,6 +11,8 @@ import outputFileSync from 'output-file-sync';
 import readDir from "fs-readdir-recursive";
 import moment from 'moment';
 
+const DEBUG = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+
 const sourceDir = 'src';
 const outputDir = 'build';
 
@@ -26,7 +28,10 @@ function compileFile(src, dest) {
   let data = transformFileSync(src, {
     sourceFileName: slash(path.relative(dest + "/..", src)),
     sourceMapTarget: path.basename(dest),
-    extends: slash(path.relative(dest + "/..", '.babelrc'))
+    extends: slash(path.relative(dest + "/..", '.babelrc')),
+    plugins: [["transform-define", {
+      "__DEV__": DEBUG,
+    }]]
   });
 
   let mapLoc = dest + ".map";
@@ -68,7 +73,7 @@ function handle(filename) {
 }
 handle(sourceDir);
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+if (DEBUG) {
   let watcher = chokidar.watch(sourceDir, {
     persistent: true,
     ignoreInitial: true,
