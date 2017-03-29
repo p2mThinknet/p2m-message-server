@@ -10,6 +10,7 @@ ADD ./config /config
 ADD ./tools /tools
 ADD ./package.json /package.json
 ADD ./yarn.lock /yarn.lock
+ADD ./.babelrc /.babelrc
 
 RUN NODE_ENV= yarn install && \
     yarn build && \
