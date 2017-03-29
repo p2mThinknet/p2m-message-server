@@ -15,6 +15,7 @@ const DEBUG = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
 const sourceDir = 'src';
 const outputDir = 'build';
+const configDir = 'config';
 
 function chmod(src, dest) {
   fs.chmodSync(dest, fs.statSync(src).mode);
@@ -24,7 +25,7 @@ function addSourceMappingUrl(code, loc) {
   return code + "\n//# sourceMappingURL=" + path.basename(loc);
 }
 
-function compileFile(src, dest) {
+function babelingFile(src, dest) {
   let data = transformFileSync(src, {
     sourceFileName: slash(path.relative(dest + "/..", src)),
     sourceMapTarget: path.basename(dest),
@@ -42,16 +43,21 @@ function compileFile(src, dest) {
 
   chmod(src, dest);
 
-  console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${src} -> ${dest}`);
+  console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] [babel] ${src} -> ${dest}`);
 }
 
-function handleFile(src, filename) {
+function copyFile(src, filename) {
+  let dest = path.join(outputDir, filename);
+  outputFileSync(dest, fs.readFileSync(src));
+  chmod(src, dest);
+
+  console.log(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] [copy] ${src} -> ${dest}`);
+}
+function compileFile(src, filename) {
   if (util.canCompile(filename)) {
-    compileFile(src, path.join(outputDir, filename));
+    babelingFile(src, path.join(outputDir, filename));
   } else {
-    let dest = path.join(outputDir, filename);
-    outputFileSync(dest, fs.readFileSync(src));
-    chmod(src, dest);
+    copyFile(src, filename);
   }
 }
 
@@ -65,16 +71,16 @@ function handle(filename) {
 
     readDir(dirname).forEach(function (filename) {
       let src = path.join(dirname, filename);
-      handleFile(src, filename);
+      compileFile(src, filename);
     });
   } else {
-    write(filename, filename);
+    compileFile(filename, filename);
   }
 }
 handle(sourceDir);
 
 if (DEBUG) {
-  let watcher = chokidar.watch(sourceDir, {
+  let watcher = chokidar.watch([sourceDir, configDir], {
     persistent: true,
     ignoreInitial: true,
     awaitWriteFinish: {
@@ -87,7 +93,7 @@ if (DEBUG) {
     watcher.on(type, function (filename) {
       let relative = path.relative(sourceDir, filename) || filename;
       try {
-        handleFile(filename, relative);
+        compileFile(filename, relative);
       } catch (err) {
         console.error(err.stack);
       }
