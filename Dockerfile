@@ -1,7 +1,8 @@
 FROM colinhan/p2m-node6
 
 ENV NODE_ENV production
-RUN npm set registry https://registry.npm.taobao.org/
+RUN npm set registry https://registry.npm.taobao.org/ && \
+    yarn config set registry  https://registry.npm.taobao.org/
 
 ADD ./bin /bin
 ADD ./src /src
