@@ -9,7 +9,11 @@ ADD ./config /config
 ADD ./package.json /package.json
 ADD ./yarn.lock /yarn.lock
 
-RUN /bin/buildInDocker.sh
+RUN NODE_ENV= yarn install && \
+    yarn build && \
+    rm -rf src && \
+    rm -rf node_modules && \
+    yarn install --prod
 
 EXPOSE 80
 
