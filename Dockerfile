@@ -7,6 +7,7 @@ RUN npm set registry https://registry.npm.taobao.org/ && \
 ADD ./bin /bin
 ADD ./src /src
 ADD ./config /config
+ADD ./tools /tools
 ADD ./package.json /package.json
 ADD ./yarn.lock /yarn.lock
 
