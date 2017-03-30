@@ -45,7 +45,7 @@
   "scripts": {
     "validateConfig": "./node_modules/.bin/babel-node tools/validateConfig.js",
     "build": "./node_modules/.bin/babel-node tools/build.js",
-    "server": "build/server.js",
+    "server": "build/app.js",
     "start": "./node_modules/.bin/nodemon --watch build --watch config build/app.js",
     "migration": "./node_modules/.bin/babel-node ./tools/migration.js up",
     "migration:down": "./node_modules/.bin/babel-node ./tools/migration.js down"
