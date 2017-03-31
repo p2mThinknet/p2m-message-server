@@ -5,7 +5,7 @@ server:
 
 database:
   username: root
-  password: aaaaaaaa
+  password: xA123456
   database: p2m_message_server
   host: mysql
   dialect: mysql

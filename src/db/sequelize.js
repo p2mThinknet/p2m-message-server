@@ -8,10 +8,10 @@
  */
 
 import Sequelize from 'sequelize';
-import Config from 'config';
+import config from 'config';
 import _ from 'lodash';
 
-export default new Sequelize(_.assign({}, Config.get('database'), {
+export default new Sequelize(_.assign({}, config.database, {
   define: {
     freezeTableName: true,
   }

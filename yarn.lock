@@ -2119,6 +2119,17 @@ p2m-message-channel-socket-io@^1.0.2:
     p2m-common-logger "^1.0.0"
     socket.io "^1.7.3"
 
+p2m-migration@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/p2m-migration/-/p2m-migration-1.2.3.tgz#37e01ebe2932eb58359aa5f5ed636e0464772a4f"
+  dependencies:
+    co "^4.6.0"
+    mysql "^2.13.0"
+    p2m-common-logger "^1.0.0"
+    sequelize "^3.30.2"
+    umzug "^1.11.0"
+    yargs "^7.0.2"
+
 package-json@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/package-json/-/package-json-1.2.0.tgz#c8ecac094227cdf76a316874ed05e27cc939a0e0"
