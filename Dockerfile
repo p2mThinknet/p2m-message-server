@@ -12,9 +12,11 @@ ADD ./package.json /package.json
 ADD ./yarn.lock /yarn.lock
 ADD ./.babelrc /.babelrc
 
+# Temporally, I use `ln -s /build src` to avoid change migration script. :(
 RUN NODE_ENV= yarn install && \
     yarn build && \
     rm -rf src && \
+    ln -s /build src && \
     rm -rf node_modules && \
     yarn install --prod && \
     yarn list
