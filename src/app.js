@@ -14,7 +14,7 @@ import commonLogger from 'p2m-common-logger';
 let logger = commonLogger('message-server');
 
 let socketIoChannel, jpushChannel;
-if (__DEV__) {
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   socketIoChannel = require('../../socketio/build');
   jpushChannel = require('../../jpush/build');
 } else {

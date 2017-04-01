@@ -31,7 +31,7 @@ function babelingFile(src, dest) {
     sourceMapTarget: path.basename(dest),
     extends: slash(path.relative(dest + "/..", '.babelrc')),
     plugins: [["transform-define", {
-      "__DEV__": DEBUG,
+      "__DEV__": DEBUG ? "DEV" : "",
     }]]
   });
 

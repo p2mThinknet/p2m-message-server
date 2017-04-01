@@ -23,7 +23,7 @@
     "p2m-common-logger": "^1.0.0",
     "p2m-message-channel-jpush": "^1.0.2",
     "p2m-message-channel-socket-io": "^1.0.2",
-    "p2m-migration": "^1.3.4",
+    "p2m-migration": "^1.3.6",
     "promise": "^7.1.1",
     "query-string": "^4.3.2",
     "sequelize": "^3.30.2"
