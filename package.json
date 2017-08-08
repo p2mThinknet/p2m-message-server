@@ -1,6 +1,6 @@
 {
   "name": "p2m-message-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A microservice to provider all platform message push service.",
   "main": "index.js",
   "repository": "https://github.com/colin-han/p2m-message-server.git",
