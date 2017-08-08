@@ -9,7 +9,7 @@ docker run -d \
     -e DB_USERNAME=<mysql user name, default is root> \
     -e DB_PASSWORD=<mysql password, default is aaaaaaaa> \
     -e JPUSH_APPKEY=<your jpush appKey> \
-    -e JPUSH_APPKEY=<your jpush masterSecret> \
+    -e JPUSH_MASTER=<your jpush masterSecret> \
     colinhan/p2m-message-server
 ```
 

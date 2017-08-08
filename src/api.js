@@ -3,6 +3,7 @@
  */
 
 import _ from 'lodash';
+import co from 'co';
 import express from 'express';
 import wrap from 'co-express';
 import {models} from './db';
@@ -136,10 +137,25 @@ router.post('/unregister', wrap(function*(req, res) {
 router.post('/send', wrap(function*(req, res) {
   let data = req.body;
   logger.log('Client ask to send message "%j"', data);
-  let {schedule, ...message} = data;
 
+  if (data.targetUserId === '*') {
+    let userIds = _.uniq(_.map(yield models.Device.findAll({
+      attributes: ['userId'],
+    }), 'userId'));
+
+    yield Promise.all(_.map(userIds, userId=>co(sendToUser(userId, data))));
+  } else {
+    yield co(sendToUser(data.targetUserId, data));
+  }
+
+  yield pushService.forceRun();
+
+  res.json({success: true});
+}));
+
+function *sendToUser(userId, message) {
   let m = yield models.Message.create({
-    targetUserId: message.targetUserId,
+    targetUserId: userId,
     sourceUserId: message.sourceUserId,
     title: message.title,
     description: message.description,
@@ -149,13 +165,9 @@ router.post('/send', wrap(function*(req, res) {
   });
 
   yield m.createSendRecord({
-    schedule: schedule ? new Date(schedule) : new Date()
+    schedule: message.schedule ? new Date(message.schedule) : new Date()
   });
-
-  yield pushService.forceRun();
-
-  res.json({success: true});
-}));
+}
 
 // Make pushRecord as delivered.
 router.post('/delivered', wrap(function*(req, res) {
