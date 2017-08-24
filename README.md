@@ -1,4 +1,16 @@
-# Start a message service
+# Start local service for development
+1. Ensure MySql server is running in localhost
+2. Create database `dev_p2m_message_server`.
+3. Run following command to initialize database
+```bash
+yarn run migration
+```
+4. Start service
+```bash
+yarn start
+```
+
+# Start a message service as docker
 ``` bash
 docker run -d \
     --restart always \
