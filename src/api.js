@@ -119,6 +119,8 @@ router.post('/register', wrap(function*(req, res) {
   logger.log('Client ask to register a new device. "%j"', req.body);
 
   yield models.Device.findOrCreate({where: {userId, deviceId, channel}});
+  let unregisterFlag = {isDeleted: false};
+  yield models.Device.update(unregisterFlag, {where: {userId, deviceId, channel}});
   res.json({success: true});
 }));
 
@@ -126,9 +128,8 @@ router.post('/unregister', wrap(function*(req, res) {
   let {userId, deviceId, channel} = req.body;
   logger.log('Client ask to unregister device. "%j"', req.body);
 
-  yield models.Device.destroy({
-    where: {userId, deviceId, channel}
-  });
+  let unregisterFlag = {isDeleted: true};
+  yield models.Device.update(unregisterFlag, {where: {userId, deviceId, channel}});
 
   res.json({success: true});
 }));
